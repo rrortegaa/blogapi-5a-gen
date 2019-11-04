@@ -37,35 +37,42 @@ router.get('/', async (request, response) => {
 })
 
 router.patch('/:id', async (request, response) => {
-    const {
-        title,
-        description,
-        authorName,
-        creationDate,
-        readTime,
-        image
-    } = request.body
+    const { params, body: data } = request
+    const { id } = params
+
+    const updatedPost = await posts.updateById(id, data)
+        response.json({
+            message: 'Post updated',
+            success: true,
+            data: {
+                post: updatedPost
+            }
+        })
     
-    const updatePost = await posts.update(title, description, authorName, creationDate, readTime, image)
-    response.json({
-        message: 'Post updated',
-        success: true,
-        data: {
-            post: updatePost
-        }
-    })
+    // const { body: data = {}} = request // en una deconstrucción podemos cambiar el nombre de body a data y si no encuentras body => le asigno valor con {} (objeto vacío)
+
+//     const { body: data = {}} = request
+//     {
+//         title,
+//         description,
+//         authorName,
+//         creationDate,
+//         readTime,
+//         image
+//     } = request.body
+    
+//     const updatePost = await posts.update(title, description, authorName, creationDate, readTime, image)
 })
 
-router.delete('/:id', (request, response) => { // : funciona como un placeholder
+router.delete('/:id', async (request, response) => { // : ':' es un placeholder 
     const { id } = request.params // router.delete{:id, :x}, () => { const { id, x } ...}
-    // posts.del(id)
-    //usecase
-    // mongoose findByIdAndDelete(id)
+    const deletedPost = await posts.deleteById(id)
+
     response.json({
         message: 'delete id',
         success: true,
         data: {
-            id
+            post: deletedPost
         }
     })
 })
