@@ -71,7 +71,7 @@ router.get('/:id', async (request, response) => {
             message: 'Post found',
             success: true,
             data: {
-                posts: post
+                post: post
             }
         })
     } catch (error) {
