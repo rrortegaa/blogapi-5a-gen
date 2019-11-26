@@ -9,7 +9,7 @@ router.use((request, response, next) => { // Middleware a nivel de router
 })
 
 router.post('/', (request, response, next) => {
-    console.log('Este es el post del router de posts')
+    console.log('This is the POST method of the post router')
     next()
 },
 async (request, response) => { // marcamos la func anónima como async porque es la función que contiene a la función await (de la que esperamos la respuesta)
@@ -51,6 +51,27 @@ router.get('/', async (request, response) => {
             success: true,
             data: {
                 posts: allPosts
+            }
+        })
+    } catch (error) {
+        response.status(400)
+        response.json({
+            message: error.message,
+            success: false,
+            error
+        })
+    }
+})
+
+router.get('/:id', async (request, response) => {
+    try {
+        const id = request.params.id
+        const post = await posts.getById(id)
+        response.json({
+            message: 'Post found',
+            success: true,
+            data: {
+                posts: post
             }
         })
     } catch (error) {

@@ -9,6 +9,10 @@ function getAll () {
     return Post.find(   )
 }
 
+function getById (id) {
+    return Post.findById(id)
+}
+
 function updateById (id, data) {
     return Post.findByIdAndUpdate(id, data)
     // const post = new Post ({ title, description, authorName, creationDate, readTime, image })
@@ -22,6 +26,7 @@ function deleteById (id) {
 module.exports = {
     create,
     getAll,
+    getById,
     updateById,
     deleteById
 }

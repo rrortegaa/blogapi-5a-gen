@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const postSchema = new mongoose.Schema({
   title: {
     type: String,
-    maxlength: 15,
+    maxlength: 20,
     required: true
   },
   description: {
@@ -13,7 +13,7 @@ const postSchema = new mongoose.Schema({
   },
   authorName: {
     type: String,
-    maxlength: 20,
+    maxlength: 30,
     default: 'Anonymous'
   },
   creationDate: {
